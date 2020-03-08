@@ -1,4 +1,4 @@
-## Configure project structure
+## Configure a reactjs project structure
 
 <p>First of all create a new nodejs application:</p>
 
