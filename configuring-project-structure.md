@@ -79,6 +79,25 @@ devServer: {
 
 <p>And in your package.json you add the following new script:</p>
 
-```json 
+```json
   "dev": "webpack-dev-server --mode development"
+```
+
+### Configuring loader for styles
+
+- `yarn add style-loader css-loader -D`
+
+<p>In the module configuration you need to add a new rule, follow the example below:</p>
+
+```js
+{
+  test: /\.css$/,
+  use: [{ loader: "style-loader" }, { loader: "css-loader" }]
+}
+```
+
+<p>In your App.js file you can import an css file and test it</p>
+
+```js
+import './App.css';
 ```
