@@ -32,5 +32,7 @@ export default TechList;
 <p>In the babel.config.js add the following config</p>
 
 ```js
-
+plugins: [
+  '@babel/plugin-proposal-class-properties'
+]
 ```
