@@ -99,5 +99,30 @@ devServer: {
 <p>In your App.js file you can import an css file and test it</p>
 
 ```js
-import './App.css';
+import "./App.css";
+```
+
+### Configuring loader for images
+
+- `yarn add file-loader -D`
+
+<p>webpack.config.js - In the module configuration you need to add a new rule, follow the example below:</p>
+
+```js
+{
+  test: /.*\.(gif|png|jpe?g)$/i,
+  use: {
+    loader: 'file-loader'
+  }
+}
+```
+
+<p>Now you can import one image in your App.js file and test it.</p>
+
+```js
+import image from './assets/image.jpg'
+```
+
+```jsx
+return <img src={image} />
 ```
