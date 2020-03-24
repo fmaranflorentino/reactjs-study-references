@@ -1,6 +1,6 @@
 ## useState
 
-Above you can see a simple example a useState Hook implementation.
+Below you can see a simple example a useState Hook implementation.
 
 ```js
 import React, { useState } from "react";
