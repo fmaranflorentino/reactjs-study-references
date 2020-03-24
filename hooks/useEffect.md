@@ -2,7 +2,7 @@
 
 `useEffect` is a hook that overcames lifecycles functions (componentDidUpdate and go on...).
 
-Bellow you a simple example of the use of useEffect hook.
+Bellow you can see a simple example of the use of useEffect hook.
 
 ```js
 import React, { useState, useEffect } from "react";
