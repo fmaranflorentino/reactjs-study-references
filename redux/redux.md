@@ -143,3 +143,102 @@ return (
   </Provider>
 );
 ```
+
+Creating actions in the `actions.js`
+
+```js
+export function signInRequest(email, password) {
+  return {
+    type: "@auth/SIGN_IN_REQUEST",
+    payload: { email, password }
+  };
+}
+
+export function signInSuccess(token, user) {
+  return {
+    type: "@auth/SIGN_IN_SUCCESS",
+    payload: { token, user }
+  };
+}
+
+export function signFailure() {
+  return {
+    type: "@auth/SIGN_FAILURE"
+  };
+}
+```
+
+Now let's define our sagas for the login request in the `sagas.js`
+
+```js
+import { takeLatest, call, put, all } from "redux-saga/effects";
+
+import history from "~/services/history";
+import api from "~/services/api";
+
+import { signInSuccess } from "./actions";
+
+export function* signIn({ payload }) {
+  const { email, password } = payload;
+
+  const response = yield call(api.post, "sessions", {
+    email,
+    password
+  });
+
+  const { user } = response.data;
+
+  if (!user.provider) {
+    console.tron.error(`usuario não é prestador`);
+    return;
+  }
+
+  yield put(signInSuccess(user.token, user));
+
+  history.push("/dashboard");
+}
+
+export default all([takeLatest("@auth/SIGN_IN_REQUEST", signIn)]);
+```
+
+Reducer.js
+
+```js
+import produce from "immer";
+
+const INITIAL_STATE = {
+  token: null,
+  signed: false,
+  loading: false
+};
+
+export default function auth(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    case "@auth/SIGN_IN_SUCCESS":
+      return produce(state, draft => {
+        draft.token = action.payload.token;
+        draft.signed = true;
+      });
+    default:
+      return state;
+  }
+}
+```
+
+the recuder listen to the triggered actions
+
+saga can intercept a action and deal with side effects
+
+Calling a actions
+
+```js
+import { useDispatch } from "react-redux";
+
+const dispatch = useDispatch();
+
+import { signInRequest } from "~/store/modules/auth/actions";
+
+function handleSubmit({ email, password }) {
+  dispatch(signInRequest(email, password));
+}
+```
