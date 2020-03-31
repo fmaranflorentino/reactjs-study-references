@@ -1,11 +1,3 @@
-## Configuration
-
-A configurartion guide to redux.
-
-- `yarn add redux react-redux`
-
-Create a `store/index.js` folder in src.
-
 ```js
 import { createStore } from 'redux';
 
